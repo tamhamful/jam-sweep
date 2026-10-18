@@ -7,6 +7,8 @@
 export const SWEEP_ENTRY = 200
 export const TWOS_ENTRY = 100
 export const BUY_IN = 3000
+export const MATCHPLAY_ENTRY = 500
+export const RYDER_ENTRY = 500
 export const FIRST_SHARE = 0.75
 
 export const SCORING = {
@@ -20,8 +22,29 @@ export const LEDGER_TYPE = {
   BUY_IN: 'BUY_IN',
   SWEEP_ENTRY: 'SWEEP_ENTRY',
   TWOS_ENTRY: 'TWOS_ENTRY',
+  MATCHPLAY_ENTRY: 'MATCHPLAY_ENTRY',
+  RYDER_ENTRY: 'RYDER_ENTRY',
   SWEEP_WIN: 'SWEEP_WIN',
   TWOS_WIN: 'TWOS_WIN',
+  MATCHPLAY_WIN: 'MATCHPLAY_WIN',
+  RYDER_WIN: 'RYDER_WIN',
+  DEPOSIT: 'DEPOSIT', // money paid in to the money admin
+  WITHDRAWAL: 'WITHDRAWAL', // money paid out by the money admin
+}
+
+// What each kind of ledger row is called on screen.
+export const LEDGER_LABEL = {
+  BUY_IN: 'Season buy-in',
+  SWEEP_ENTRY: 'Sweep entry',
+  TWOS_ENTRY: 'Magic Twos entry',
+  MATCHPLAY_ENTRY: 'Match play entry',
+  RYDER_ENTRY: 'Ryder Cup entry',
+  SWEEP_WIN: 'Sweep winnings',
+  TWOS_WIN: 'Magic Twos winnings',
+  MATCHPLAY_WIN: 'Match play winnings',
+  RYDER_WIN: 'Ryder Cup winnings',
+  DEPOSIT: 'Paid in',
+  WITHDRAWAL: 'Paid out',
 }
 
 // ---------- Weekly sweep ----------
@@ -99,10 +122,13 @@ export function settleTwos({ memberIds, carriedIn = 0, winnerIds = [] }) {
 // The ledger rows a confirmed week creates.
 export function weekLedger(week, sweep, twos, memberIds) {
   const rows = []
-  const add = (playerId, type, amount) => rows.push({ date: week.date, weekId: week.id, playerId, type, amount })
+  const add = (playerId, type, amount, extra) =>
+    rows.push({ date: week.date, weekId: week.id, playerId, type, amount, ...extra })
   for (const r of sweep.results) add(r.playerId, LEDGER_TYPE.SWEEP_ENTRY, -SWEEP_ENTRY)
   for (const id of memberIds) add(id, LEDGER_TYPE.TWOS_ENTRY, -TWOS_ENTRY)
-  for (const r of sweep.results) if (r.winnings > 0) add(r.playerId, LEDGER_TYPE.SWEEP_WIN, r.winnings)
+  for (const r of sweep.results) {
+    if (r.winnings > 0) add(r.playerId, LEDGER_TYPE.SWEEP_WIN, r.winnings, { position: r.position })
+  }
   for (const id of twos.winnerIds) add(id, LEDGER_TYPE.TWOS_WIN, twos.share)
   return rows
 }
@@ -112,7 +138,12 @@ export function balanceOf(ledger, playerId) {
   return ledger.filter((r) => r.playerId === playerId).reduce((sum, r) => sum + r.amount, 0)
 }
 
-const WINNING_TYPES = new Set([LEDGER_TYPE.SWEEP_WIN, LEDGER_TYPE.TWOS_WIN])
+export const WINNING_TYPES = new Set([
+  LEDGER_TYPE.SWEEP_WIN,
+  LEDGER_TYPE.TWOS_WIN,
+  LEDGER_TYPE.MATCHPLAY_WIN,
+  LEDGER_TYPE.RYDER_WIN,
+])
 
 export function winningsOf(ledger, playerId) {
   return ledger

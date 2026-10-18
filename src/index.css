@@ -179,7 +179,8 @@ button {
   text-align: left;
   border-top: 1px solid var(--line);
 }
-.list-row:first-child { border-top: 0; }
+.list > :first-child,
+.list > :first-child > .list-row { border-top: 0; }
 button.list-row:active { background: #faf8f3; }
 .list-main { flex: 1; min-width: 0; }
 .list-title { font-weight: 500; }
@@ -231,3 +232,119 @@ button.list-row:active { background: #faf8f3; }
   border-radius: 10px;
   font-size: 14px;
 }
+
+/* ---------- Statements, rounds and titles ---------- */
+
+.stat-button { text-align: left; display: flex; flex-direction: column; }
+.stat-button:active { background: #faf8f3; }
+.stat-button .stat-label { display: flex; justify-content: space-between; align-items: center; }
+.stat-value-small { font-size: 18px; }
+.stat-of { font-size: 15px; color: var(--muted); font-weight: 500; }
+.stats-3 { grid-template-columns: repeat(3, 1fr); }
+
+.big-number { font-size: 34px; font-weight: 600; font-variant-numeric: tabular-nums; margin: 4px 0; }
+.money-in { color: var(--fairway-2); }
+
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  font-size: 14px;
+  color: var(--muted);
+}
+.chip[aria-pressed='true'] { background: var(--fairway); border-color: var(--fairway); color: var(--chalk); }
+
+.title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: -10px; }
+.eyebrow { font-size: 13px; font-weight: 600; color: var(--brass); text-transform: uppercase; letter-spacing: 0.06em; }
+.text-button { display: flex; align-items: center; gap: 2px; color: var(--fairway); font-weight: 600; font-size: 14px; padding: 4px 0; }
+
+.demo-banner select {
+  font: inherit;
+  font-size: 13px;
+  border: 1px solid #d8c792;
+  border-radius: 6px;
+  background: #fffaf0;
+  color: inherit;
+  padding: 1px 4px;
+  margin-left: 4px;
+}
+
+/* ---------- Match play ---------- */
+
+:root {
+  --you: #d6ecdd; /* accent green: highlights your name */
+  --you-ink: #0f5132;
+}
+
+.mp-status {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--fairway);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.mp-status.is-out { border-left-color: var(--muted); }
+.mp-status.is-champion { border-left-color: var(--brass); }
+.mp-status-title { font-size: 20px; font-weight: 600; }
+.mp-status .primary-button { margin-top: 6px; }
+
+.mp-form { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.mp-form-label { font-size: 13px; font-weight: 600; color: var(--muted); }
+.mp-form-actions { display: grid; grid-template-columns: 1fr 2fr; gap: 8px; margin-top: 4px; }
+.select {
+  font: inherit;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+}
+.form-error { color: var(--owed); font-size: 14px; }
+.secondary-button {
+  border: 1px solid var(--line);
+  background: var(--card);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-weight: 600;
+}
+
+.mp-bracket {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  margin: 0 -16px;
+  padding: 0 16px 8px;
+  scroll-snap-type: x proximity;
+}
+.mp-round { display: flex; flex-direction: column; flex: 0 0 168px; scroll-snap-align: start; }
+.mp-round-head { padding-bottom: 8px; }
+.mp-round-name { font-weight: 600; font-size: 14px; }
+.mp-round.is-current .mp-round-name { color: var(--fairway); }
+.mp-round-deadline { font-size: 12px; color: var(--muted); min-height: 16px; }
+.mp-round-matches { flex: 1; display: flex; flex-direction: column; justify-content: space-around; gap: 8px; }
+.mp-match {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 13px;
+}
+.mp-slot {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 6px 8px;
+  min-height: 30px;
+  align-items: center;
+}
+.mp-slot + .mp-slot { border-top: 1px solid var(--line); }
+.mp-slot-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mp-slot.is-winner { font-weight: 600; }
+.mp-slot.is-loser { color: var(--muted); }
+.mp-slot-result { font-size: 12px; color: var(--muted); font-weight: 500; flex-shrink: 0; }
+.mp-slot.is-you { background: var(--you); color: var(--you-ink); font-weight: 700; }
+.stat { display: flex; flex-direction: column; min-width: 0; }

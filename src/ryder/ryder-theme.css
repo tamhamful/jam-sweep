@@ -1,0 +1,41 @@
+/* Ryder Cup styles come from the WGM Golf Cup app (ryder.css). These
+   variables map its colours onto Jam Sweep's. Team Blue is the home side,
+   Team Gold the challengers. */
+
+.ryder {
+  --wgm-blue: #2c5f9e; /* Team Blue */
+  --wgm-green: #a67c1f; /* Team Gold */
+  --wgm-navy: var(--ink);
+  --wgm-blue-2: #1f4778;
+  --wgm-blue-light: #b9cde6;
+  --wgm-green-light: #e6d3a3;
+  --text: var(--ink);
+  --surface: var(--card);
+  --surface-soft: #efece3;
+  --surface-softer: #f7f5ef;
+  --radius: 8px;
+  gap: 12px;
+}
+
+.ryder-top { display: flex; justify-content: flex-end; margin-bottom: -4px; }
+.format-note { font-size: 13px; color: var(--muted); margin: 0; }
+.match-player-line { display: block; }
+.match-player-line.is-you {
+  color: var(--you-ink);
+  background: var(--you);
+  border-radius: 4px;
+  padding: 0 4px;
+  margin: 0 -4px;
+}
+.ryder .day-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.15;
+  height: auto;
+  min-height: 44px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+.day-button-detail { font-size: 11px; font-weight: 500; opacity: 0.8; }

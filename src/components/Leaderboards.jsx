@@ -6,8 +6,8 @@ const BOARDS = {
   winnings: { label: 'Winnings', show: formatMoney, note: 'Weekly sweep, Magic Twos, match play and Ryder Cup' },
 }
 
-export function Leaderboards({ season, playerId }) {
-  const [board, setBoard] = useState('merit')
+export function Leaderboards({ season, playerId, initialBoard = 'merit' }) {
+  const [board, setBoard] = useState(initialBoard)
   const rows = season[board]
   const { show, note } = BOARDS[board]
 

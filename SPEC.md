@@ -75,7 +75,7 @@ Example data from the 2026 spreadsheet is in `data/2026-spreadsheet/`.
 
 - The admin picks the hole for each week, e.g. hole 16 or hole 5.
 - **Every member** pays £1, but **only in weeks that have a sweep result**.
-- Anyone who scores a 2 on that hole wins. If several people do, the pot is **split equally**.
+- Anyone who scores a 2 on that hole wins. If several people do, the pot is **split equally**. Any odd pence left over from the split roll over with the pot.
 - If nobody wins, the pot **rolls over**, including into next season. Example: £40 → £80.
 - A **rollover call-out box** on the home page shows the current pot and how many weeks it has rolled.
 - **Who scored a 2:** taken from the HowDidiDo file if it has hole-by-hole scores. If not, the admin ticks the winners.
@@ -86,6 +86,8 @@ Example data from the 2026 spreadsheet is in `data/2026-spreadsheet/`.
 - £5 entry is taken from each player's balance, making a £160 pot. The winner gets **75%** (£120) and the runner-up gets **25%** (£40).
 - The admin sets a **deadline for each round**.
 - **Either player** can enter the final result, e.g. "3&2". Handicaps are agreed on the day.
+  - A match can't be halved. If it's level after 18, the result is "At the 19th", "At the 20th" and so on.
+  - A result can be corrected until the winner has played their next match. After that, only an admin can change it.
 - Bracket view, plus reminders when a match deadline is near.
 
 ## 7. Ryder Cup
@@ -100,7 +102,9 @@ Example data from the 2026 spreadsheet is in `data/2026-spreadsheet/`.
 - **Prize:** the £120 is split equally among the **winning team** (£10 each).
 - **A 12–12 tie** means the pot **rolls over to next year's** Ryder Cup.
 - Players score **live, hole by hole**. Live leaderboard, match board and ticker.
-- Built from the **WGM Golf Cup** scoring engine. That engine is singles only, so it needs extending to 2 v 2.
+- Built from the **WGM Golf Cup** screens and scoring engine, extended to 2 v 2:
+  - Pairs are shown by surname ("Hamilton & Muir"). Any of the four players in a fourball or foursomes match can score it. Singles go out two matches to a group.
+  - Teams are **Team Blue** and **Team Gold** for now, and the admin will be able to rename them.
 
 ## 8. Leaderboards
 
@@ -125,6 +129,13 @@ Example data from the 2026 spreadsheet is in `data/2026-spreadsheet/`.
 - **Magic Twos rollover call-out box.**
 - **Tiles:** Results · Match Play · Ryder Cup · Leaderboards.
 - **Admin entry point**, visible to admins only.
+- **Tapping the dashboard:**
+  - **Balance** opens every transaction (entries, winnings, paid in and paid out), with a running balance and filters.
+  - **Winnings** opens each win: where it came from (sweep, Magic Twos, match play or Ryder Cup) and when.
+  - **Rounds played** opens every round played, with score and finishing position.
+  - **Order of Merit** opens the leaderboards.
+- **Results** opens the latest sweep, with a link to all rounds.
+- **Match play** shows your next match at the top (or how you went out), then the live bracket with your name highlighted.
 
 ## 10. Sharing
 

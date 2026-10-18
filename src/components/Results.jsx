@@ -8,7 +8,7 @@ export function ResultsList({ season, go }) {
   const weeks = [...season.weeks].reverse()
   return (
     <main className="page">
-      <h1 className="page-title">Results</h1>
+      <h1 className="page-title">All rounds</h1>
       <ul className="list">
         {weeks.map((w) => {
           const winner = w.sweep.results[0]
@@ -36,7 +36,7 @@ export function ResultsList({ season, go }) {
 }
 
 // One week's results, with the pot, Magic Twos and a share button.
-export function WeekResult({ season, weekId, playerId }) {
+export function WeekResult({ season, weekId, playerId, go }) {
   const [toast, setToast] = useState(null)
   const week = season.weeks.find((w) => w.id === weekId)
   if (!week) {
@@ -51,6 +51,7 @@ export function WeekResult({ season, weekId, playerId }) {
   }
 
   const unit = week.scoring === SCORING.STABLEFORD ? 'Stableford' : 'Net strokes'
+  const isLatest = week.id === season.latestWeek?.id
 
   async function share() {
     const text = shareText(week, season)
@@ -68,6 +69,13 @@ export function WeekResult({ season, weekId, playerId }) {
 
   return (
     <main className="page">
+      <div className="title-row">
+        <p className="eyebrow">{isLatest ? 'Latest result' : `Week ${week.weekNumber}`}</p>
+        <button className="text-button" onClick={() => go({ name: 'results' })}>
+          All rounds
+          <Icon name="chevron" size={16} />
+        </button>
+      </div>
       <div>
         <h1 className="page-title">{week.competition}</h1>
         <p className="muted">

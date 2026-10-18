@@ -1,0 +1,1272 @@
+/* ---------- Overall score ---------- */
+
+.scoreboard {
+  padding: 20px 0 16px;
+}
+
+.scoreboard-teams {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: end;
+  gap: 16px;
+}
+
+.team-score {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.team-score-challengers {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.team-score-name {
+  max-width: 100%;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.team-score-points {
+  margin: 2px 0 8px;
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -1.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.team-score-home .team-score-points {
+  color: var(--wgm-blue);
+}
+
+.team-score-challengers .team-score-points {
+  color: var(--wgm-green);
+}
+
+/* Single competition bar: blue from the left, green from the right. */
+.score-bar {
+  position: relative;
+  width: 100%;
+  height: 12px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--surface-soft);
+}
+
+/* The light projected shades sit underneath the solid actual scores. */
+.score-bar-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  transition: width 0.3s ease;
+}
+
+.score-bar-fill.is-home {
+  left: 0;
+  background: var(--wgm-blue);
+}
+
+.score-bar-fill.is-challengers {
+  right: 0;
+  background: var(--wgm-green);
+}
+
+.score-bar-fill.is-home.is-projected {
+  background: var(--wgm-blue-light);
+}
+
+.score-bar-fill.is-challengers.is-projected {
+  background: var(--wgm-green-light);
+}
+
+/* Halfway mark (9 of 18): a team must pass it to win. */
+.score-bar-midpoint {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  left: 50%;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--wgm-navy);
+}
+
+.score-bar-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.scoreboard-target {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 12px;
+  color: var(--muted);
+}
+
+.target-number {
+  color: var(--wgm-navy);
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.target-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.scoreboard-summary {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+/* ---------- Tabs and day selector ---------- */
+
+.tabs {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.tab {
+  position: relative;
+  padding: 12px 0 11px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tab:hover {
+  color: var(--text);
+}
+
+.tab.is-active {
+  color: var(--text);
+}
+
+.tab.is-active::after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: var(--wgm-blue);
+  content: '';
+}
+
+.day-selector {
+  display: inline-flex;
+  gap: 2px;
+  margin: 14px 0 12px;
+  padding: 3px;
+  border-radius: var(--radius);
+  background: var(--surface-soft);
+}
+
+.day-button {
+  min-height: 36px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.day-button.is-active {
+  background: var(--surface);
+  color: var(--wgm-navy);
+  box-shadow: 0 1px 2px rgb(10 29 73 / 0.12);
+}
+
+.tab-panel {
+  margin-top: 4px;
+}
+
+/* Tabs without the day selector need a little space above content. */
+.tabs + .tab-panel {
+  margin-top: 16px;
+}
+
+/* ---------- Three-column match leaderboard ---------- */
+
+.match-board-header,
+.match-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 92px minmax(0, 1fr);
+}
+
+.match-board-header {
+  padding-bottom: 8px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.board-team {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.board-team::before {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  border-radius: 50%;
+  content: '';
+}
+
+.board-team-home {
+  padding-left: 12px;
+}
+
+.board-team-home::before {
+  background: var(--wgm-blue);
+}
+
+.board-team-challengers {
+  flex-direction: row-reverse;
+  padding-right: 12px;
+  text-align: right;
+}
+
+.board-team-challengers::before {
+  background: var(--wgm-green);
+}
+
+.board-centre-label {
+  text-align: center;
+}
+
+.match-list {
+  display: grid;
+  gap: 4px;
+}
+
+.match-row {
+  min-height: 60px;
+}
+
+.match-player {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 10px 12px;
+  background: var(--surface-soft);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.match-player-home {
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+
+.match-player-challengers {
+  justify-content: flex-end;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  text-align: right;
+}
+
+.match-player-name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Match score sits on the inner edge of the box, next to the centre column. */
+.match-score {
+  flex: 0 0 auto;
+  font-size: 16px;
+  font-weight: 800;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.match-player-home .match-score {
+  margin-left: auto;
+}
+
+.match-player-challengers .match-score {
+  margin-right: auto;
+}
+
+/* "AS" when all square: shown on both sides, not highlighted. */
+.match-player:not(.is-leading) .match-score {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.match-player.is-leading {
+  color: #fff;
+  font-weight: 700;
+}
+
+.match-player-home.is-leading {
+  background: var(--wgm-blue);
+}
+
+.match-player-challengers.is-leading {
+  background: var(--wgm-green);
+}
+
+.match-centre {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 6px 4px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+
+.match-through {
+  color: var(--wgm-navy);
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.match-detail {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+}
+
+.match-not-started {
+  color: #8a93a2;
+}
+
+.status-complete .match-detail {
+  color: var(--wgm-navy);
+}
+
+/* Not-started rows are quieter so live matches stand out. */
+.status-not_started .match-player {
+  background: var(--surface-softer);
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* ---------- Team colour dots ---------- */
+
+.team-dot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  border-radius: 50%;
+}
+
+.team-dot-home {
+  background: var(--wgm-blue);
+}
+
+.team-dot-challengers {
+  background: var(--wgm-green);
+}
+
+/* ---------- Players tab ---------- */
+
+.players-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.players-team-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  padding: 10px 0 8px;
+  border-top: 3px solid var(--wgm-blue);
+  font-size: 16px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.players-team-challengers .players-team-name {
+  border-top-color: var(--wgm-green);
+}
+
+.players-count {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.players-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+}
+
+/* ---------- Shared ---------- */
+
+.empty-state {
+  padding: 32px 0;
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 560px) {
+  .brand-logo {
+    height: 38px;
+  }
+
+  .brand-title {
+    font-size: 14px;
+  }
+
+  .tournament-status {
+    font-size: 11px;
+  }
+
+  .scoreboard {
+    padding-top: 16px;
+  }
+
+  .scoreboard-teams {
+    gap: 10px;
+  }
+
+  .team-score-name {
+    font-size: 11px;
+  }
+
+  .team-score-points {
+    font-size: 42px;
+  }
+
+  /* Each tab gets an equal share of the width with its label centred, so the
+     middle tab sits exactly in the middle of the screen. */
+  .tabs {
+    gap: 0;
+  }
+
+  .tab {
+    flex: 1 1 0;
+    min-height: 44px;
+    text-align: center;
+    font-size: 13px;
+  }
+
+  .day-selector {
+    display: flex;
+    width: 100%;
+  }
+
+  .day-button {
+    flex: 1;
+    padding: 0 8px;
+  }
+
+  .match-board-header,
+  .match-row {
+    grid-template-columns: minmax(0, 1fr) 62px minmax(0, 1fr);
+  }
+
+  .match-board-header {
+    font-size: 10px;
+    letter-spacing: 0.3px;
+  }
+
+  .board-team-home {
+    padding-left: 8px;
+  }
+
+  .board-team-challengers {
+    padding-right: 8px;
+  }
+
+  .match-row {
+    min-height: 54px;
+  }
+
+  .match-player {
+    gap: 6px;
+    padding: 8px;
+    font-size: 13px;
+    line-height: 1.25;
+  }
+
+  .match-score {
+    font-size: 14px;
+  }
+
+  .match-player:not(.is-leading) .match-score {
+    font-size: 12px;
+  }
+
+  .match-through {
+    font-size: 16px;
+  }
+
+  .match-detail {
+    font-size: 9px;
+    letter-spacing: 0.3px;
+  }
+
+  .players-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* ---------- Shared form controls ---------- */
+
+.text-input,
+.select-input {
+  width: 100%;
+  min-height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 15px;
+}
+
+.text-input:focus,
+.select-input:focus {
+  border-color: var(--wgm-blue);
+  outline: 2px solid rgb(37 150 190 / 0.25);
+  outline-offset: 0;
+}
+
+.select-input:disabled {
+  background: var(--surface-soft);
+  color: var(--muted);
+}
+
+.is-empty {
+  border-style: dashed;
+  color: var(--muted);
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.button {
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.button-secondary {
+  border-color: var(--line);
+  background: var(--surface);
+}
+
+.button-quiet {
+  min-height: 36px;
+  padding: 0 8px;
+  background: none;
+  color: var(--wgm-blue-2);
+  font-size: 13px;
+}
+
+.button-quiet:hover {
+  background: var(--surface-soft);
+}
+
+.button-danger-text {
+  color: #b42318;
+}
+
+.button-danger {
+  background: #b42318;
+  color: #fff;
+}
+
+.warning-text {
+  color: #9a5b00;
+  font-weight: 600;
+}
+
+.warning-box,
+.error-box,
+.device-notice {
+  margin-bottom: 14px;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  font-size: 13px;
+}
+
+.device-notice {
+  background: #e9f4f9;
+  color: var(--wgm-blue-2);
+}
+
+.warning-box {
+  background: #fff6e5;
+  color: #7a4800;
+}
+
+.error-box {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  background: #fdecea;
+  color: #8a1c13;
+}
+
+/* ---------- Clickable leaderboard rows ---------- */
+
+button.match-row {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+}
+
+.match-row.is-clickable:hover .match-player:not(.is-leading) {
+  background: #e9ecf1;
+}
+
+.match-row.is-clickable:hover .match-player.is-leading {
+  filter: brightness(0.94);
+}
+
+.match-row.is-clickable:focus-visible {
+  outline: 2px solid var(--wgm-navy);
+  outline-offset: 2px;
+  border-radius: var(--radius);
+}
+
+.score-hint {
+  margin-bottom: 8px;
+  color: var(--wgm-blue-2);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.info-box {
+  margin-bottom: 14px;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  background: #e9f4f9;
+  color: var(--wgm-blue-2);
+  font-size: 13px;
+}
+
+/* ---------- Scorecard ---------- */
+
+.scorecard {
+  padding-top: 14px;
+}
+
+.back-link {
+  font-size: 14px;
+}
+
+.scorecard-meta {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.scorecard-players {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.scorecard-player {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding-bottom: 6px;
+  border-bottom: 3px solid var(--wgm-blue);
+  font-size: 17px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.scorecard-player.is-challengers {
+  border-bottom-color: var(--wgm-green);
+  text-align: right;
+}
+
+.scorecard-team {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.scorecard-v {
+  padding-bottom: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.scorecard-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin: 16px 0;
+  padding: 12px;
+  border-radius: var(--radius);
+  background: var(--surface-soft);
+  text-align: center;
+}
+
+.scorecard-status strong {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.scorecard-status span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.scorecard-status.is-home {
+  background: var(--wgm-blue);
+}
+
+.scorecard-status.is-challengers {
+  background: var(--wgm-green);
+}
+
+.scorecard-status.is-home strong,
+.scorecard-status.is-home span,
+.scorecard-status.is-challengers strong,
+.scorecard-status.is-challengers span {
+  color: #fff;
+}
+
+.hole-entry {
+  margin-bottom: 18px;
+}
+
+.hole-entry-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.hole-entry-title span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.hole-entry-buttons {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 90px minmax(0, 1fr);
+  gap: 8px;
+}
+
+.result-button {
+  min-height: 64px;
+  padding: 8px;
+  border: 0;
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.result-button.is-home {
+  background: var(--wgm-blue);
+  color: #fff;
+}
+
+.result-button.is-challengers {
+  background: var(--wgm-green);
+  color: #fff;
+}
+
+.result-button.is-halved {
+  border: 1px solid var(--line);
+  background: var(--surface-soft);
+  color: var(--text);
+}
+
+.result-button:active {
+  filter: brightness(0.9);
+}
+
+.hole-entry-actions {
+  display: flex;
+  justify-content: center;
+  min-height: 36px;
+  margin-top: 6px;
+}
+
+.hole-grid-heading {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.hole-grid {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  gap: 3px;
+  margin-bottom: 3px;
+}
+
+.hole-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-height: 46px;
+  padding: 4px 0;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.hole-cell:disabled {
+  cursor: default;
+}
+
+.hole-number {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.hole-mark {
+  min-height: 16px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.hole-cell.is-home {
+  border-color: var(--wgm-blue);
+  background: var(--wgm-blue);
+}
+
+.hole-cell.is-challengers {
+  border-color: var(--wgm-green);
+  background: var(--wgm-green);
+}
+
+.hole-cell.is-home .hole-number,
+.hole-cell.is-home .hole-mark,
+.hole-cell.is-challengers .hole-number,
+.hole-cell.is-challengers .hole-mark {
+  color: #fff;
+}
+
+.hole-cell.is-halved {
+  background: var(--surface-soft);
+}
+
+.hole-cell.is-active {
+  outline: 2px solid var(--wgm-navy);
+  outline-offset: 1px;
+}
+
+.hole-totals {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.hole-totals .is-home {
+  color: #1b7396;
+  font-weight: 600;
+}
+
+.hole-totals .is-challengers {
+  color: var(--wgm-green);
+  font-weight: 600;
+  text-align: right;
+}
+
+@media (max-width: 560px) {
+  .scorecard-player {
+    font-size: 15px;
+  }
+
+  .scorecard-status strong {
+    font-size: 17px;
+  }
+
+  .hole-entry-buttons {
+    grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr);
+  }
+
+  .result-button {
+    min-height: 60px;
+    font-size: 14px;
+  }
+
+  .hole-grid {
+    gap: 2px;
+  }
+
+  .hole-cell {
+    min-height: 42px;
+  }
+
+  .hole-mark {
+    font-size: 10px;
+  }
+}
+
+/* ---------- Ticker ---------- */
+
+.ticker {
+  margin-top: 12px;
+}
+
+.ticker-strip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 40px;
+  padding: 0 10px 0 0;
+  overflow: hidden;
+  border: 0;
+  border-left: 4px solid var(--wgm-navy);
+  border-radius: var(--radius);
+  background: var(--surface-soft);
+  color: var(--text);
+  text-align: left;
+}
+
+.ticker-strip.is-home,
+.ticker-list li.is-home {
+  border-left-color: var(--wgm-blue);
+}
+
+.ticker-strip.is-challengers,
+.ticker-list li.is-challengers {
+  border-left-color: var(--wgm-green);
+}
+
+.ticker-strip.is-notice,
+.ticker-list li.is-notice {
+  border-left-color: #c98a00;
+}
+
+.ticker-live {
+  flex: 0 0 auto;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  background: var(--wgm-navy);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  padding: 6px 0;
+  animation: ticker-in 0.35s ease;
+}
+
+/* Up to two lines, so a phone shows the whole message. */
+.ticker-strip .ticker-text {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.ticker-label {
+  flex: 0 0 auto;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: #fff3d6;
+  color: #7a5200;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.ticker-time {
+  flex: 0 0 auto;
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.ticker-toggle {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.ticker-list {
+  max-height: 320px;
+  margin-top: 4px;
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.ticker-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  border-left: 4px solid var(--line);
+  font-size: 13px;
+}
+
+.ticker-list li:last-child {
+  border-bottom: 0;
+}
+
+@keyframes ticker-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-item {
+    animation: none;
+  }
+}
+
+/* The narrowest phones get a third line rather than cutting messages short. */
+@media (max-width: 380px) {
+  .ticker-strip {
+    min-height: 64px;
+  }
+
+  .ticker-strip .ticker-text {
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  .ticker-list li {
+    flex-wrap: wrap;
+  }
+}
+
+/* ---------- Rankings ---------- */
+
+.rankings-row {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) 76px 56px 44px;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 6px;
+  border-bottom: 1px solid var(--line);
+}
+
+.rankings-head {
+  padding-top: 0;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.rankings-row.is-you {
+  background: var(--surface-softer);
+}
+
+.rankings-rank {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The dot lines up with the player's name (first line), not the team line. */
+.rankings-player {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+}
+
+.rankings-player .team-dot {
+  align-self: flex-start;
+  margin-top: 6px;
+}
+
+.rankings-name {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.rankings-team {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* Numbers sit centred under their column headings. */
+.rankings-num {
+  text-align: center;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.rankings-head .rankings-num {
+  font-size: 11px;
+}
+
+.rankings-won {
+  color: var(--wgm-navy);
+  font-size: 18px;
+  font-weight: 800;
+}
+
+@media (max-width: 560px) {
+  .rankings-row {
+    grid-template-columns: 28px minmax(0, 1fr) 52px 44px 32px;
+    gap: 6px;
+    padding: 9px 2px;
+  }
+
+  .rankings-head {
+    font-size: 10px;
+    letter-spacing: 0;
+  }
+
+  .rankings-head .rankings-num {
+    font-size: 10px;
+  }
+
+  .rankings-name {
+    font-size: 14px;
+  }
+
+  .tabs {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .tab {
+    padding-right: 2px;
+    padding-left: 2px;
+    font-size: 12px;
+  }
+}
+
+/* ---------- Captain / vice-captain ---------- */
+
+.role-tag {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.match-player:not(.is-leading) .role-tag,
+.players-list .role-tag {
+  color: var(--wgm-blue-2);
+}
+
+.team-roles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.team-role {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.team-role .select-input {
+  min-height: 38px;
+  font-size: 14px;
+}
