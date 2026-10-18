@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Jam Sweep">
+  <circle cx="60" cy="60" r="56" fill="#123B2C"/>
+  <circle cx="60" cy="60" r="47" fill="none" stroke="#C9A54C" stroke-width="2"/>
+  <text x="60" y="66" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#F5F2EA">JS</text>
+  <path d="M38 82 Q60 92 82 82" fill="none" stroke="#C9A54C" stroke-width="2" stroke-linecap="round"/>
+</svg>
